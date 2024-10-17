@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:C868_RyanNewman.Models"
+             xmlns:services="clr-namespace:C868_RyanNewman.Services"
+             xmlns:viewmodels="clr-namespace:C868_RyanNewman.ViewModels"
+             x:DataType="viewmodels:AddTermViewModel"
+             x:Class="C868_RyanNewman.Views.AddTermPage"
+             Title="AddTermPage">
+
+    <StackLayout Padding="20" Spacing="15">
+
+        <!-- Term Name Entry -->
+        <Label Text="Term Name" />
+        <Entry Placeholder="Enter term name"
+               Text="{Binding Name}"
+               Keyboard="Default" />
+
+        <!-- Start Date Picker -->
+        <Label Text="Start Date" />
+        <DatePicker Date="{Binding StartDate}" />
+
+        <!-- End Date Picker -->
+        <Label Text="End Date" />
+        <DatePicker Date="{Binding EndDate}" />
+
+         <!--Save Button--> 
+        <Button Text="Save Term"
+                Command="{Binding SaveTermCommand}" />
+
+         <!--Cancel Button--> 
+        <Button Text="Cancel"
+                Command="{Binding CancelCommand}"
+                BackgroundColor="LightGray"
+                TextColor="Black" />
+    </StackLayout>
+</ContentPage>

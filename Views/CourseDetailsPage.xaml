@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:C868_RyanNewman.Models"
+             xmlns:services="clr-namespace:C868_RyanNewman.Services"
+             xmlns:viewmodels="clr-namespace:C868_RyanNewman.ViewModels"
+             x:Class="C868_RyanNewman.Views.CourseDetailsPage"
+             Title="Edit Course Information Page">
+    <ScrollView>
+        
+    <StackLayout Padding="10" Spacing="20">
+
+        <!-- Course Name -->
+        <Label Text="Course Title" />
+        <Entry Text="{Binding Course.Title}" />
+
+
+            <!-- Course Start Date -->
+        <Label Text="Course Start Date" />
+        <DatePicker Date="{Binding Course.StartDate}" />
+            <!-- Course Start Date with Alert Toggle in Frame -->
+            <Frame BorderColor="#2c3e50" Padding="1" CornerRadius="8">
+                <StackLayout>
+                    <!-- Enable Start Date Alerts Toggle -->
+                    <Label Text="Enable Start Date Alerts" FontAttributes="Bold" FontSize="Small" TextColor="#2c3e50" Margin="0,5,0,0"/>
+                    <Switch IsToggled="{Binding Course.IsCourseStartDateAlertEnabled}" />
+                </StackLayout>
+            </Frame>
+
+        <!-- Course End Date -->
+        <Label Text="Course End Date" />
+        <DatePicker Date="{Binding Course.EndDate}" /> 
+            <!-- Course End Date with Alert Toggle in Frame -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    <!-- Enable End Date Alerts Toggle -->
+                    <Label Text="Enable End Date Alerts" FontAttributes="Bold" FontSize="Small" TextColor="#2c3e50" Margin="0,10,0,0"/>
+                    <Switch IsToggled="{Binding Course.IsCourseEndDateAlertEnabled}" />
+                </StackLayout>
+            </Frame>
+        
+        <!-- Course Due Date -->
+        <Label Text="Course Due Date" />
+        <DatePicker Date="{Binding Course.DueDate}" />
+
+        <!-- Course Status -->
+        <Label Text="Course Status" />
+        <Picker ItemsSource="{Binding StatusOptions}" 
+            SelectedItem="{Binding Course.Status}"
+            Title="{Binding Course.Status}">
+        </Picker>
+        <!-- Instructor Name -->
+        <Label Text="Instructor Name" />
+        <Entry Text="{Binding Course.InstructorName}" />
+
+        <!-- Instructor Phone -->
+        <Label Text="Instructor Phone" />
+        <Entry Text="{Binding Course.InstructorPhoneNumber}" Keyboard="Telephone" />
+
+        <!-- Instructor Email -->
+        <Label Text="Instructor Email" />
+        <Entry Text="{Binding Course.InstructorEmail}" Keyboard="Email" />
+
+        <!-- Optional Notes -->
+        <Label Text="Notes (Optional)" />
+        <Entry Text="{Binding Course.OptionalNotes}" />
+
+        <!-- Performance Assessment Status -->
+        <Label Text="Performance Assessment Status" FontAttributes="Bold" FontSize="Medium"/>
+        <Label Text="{Binding Course.PerformanceAssessmentStatus}" />
+
+        <!-- Objective Assessment Status -->
+            <Label Text="Objective Assessment Status" FontAttributes="Bold" FontSize="Medium"/>
+        <Label Text="{Binding Course.ObjectiveAssessmentStatus}" />
+
+            <!-- Save Button -->
+        <Button Text="Save Course" Command="{Binding SaveCourseCommand}" />
+        <!-- Delete Button -->
+        <Button Text="Delete Course" 
+    Command="{Binding DeleteCourseCommand}" 
+    BackgroundColor="Red" 
+    TextColor="White" />
+    </StackLayout>
+    </ScrollView>
+</ContentPage>

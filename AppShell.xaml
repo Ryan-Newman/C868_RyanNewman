@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="C868_RyanNewman.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:C868_RyanNewman.Views"
+    xmlns:local="clr-namespace:C868_RyanNewman"
+    Shell.FlyoutBehavior="Disabled"
+    Title="C868_RyanNewman">
+
+    <ShellContent
+    Title="Home"
+    ContentTemplate="{DataTemplate local:MainPage}"
+    Route="MainPage" />
+    <ShellContent Title="Add Term" ContentTemplate="{DataTemplate views:AddTermPage}" Route="AddTermPage"/>
+    <ShellContent Route="TermDetailsPage" ContentTemplate="{DataTemplate views:TermDetailsPage}" />
+    <ShellContent Route="CourseSelectionPage" ContentTemplate="{DataTemplate views:CourseSelectionPage}" />
+    <ShellContent Route="AddCoursePage" ContentTemplate="{DataTemplate views:AddCoursePage}" />
+    <ShellContent Route="CourseDetailsPage" ContentTemplate="{DataTemplate views:CourseDetailsPage}" />
+    <ShellContent Route="CourseInformationPage" ContentTemplate="{DataTemplate views:CourseInformationPage}" />
+    <ShellContent Route="PerformanceAssessmentPage" ContentTemplate="{DataTemplate views:PerformanceAssessmentPage}" />
+    <ShellContent Route="ObjectiveAssessmentPage" ContentTemplate="{DataTemplate views:ObjectiveAssessmentPage}" />
+</Shell>

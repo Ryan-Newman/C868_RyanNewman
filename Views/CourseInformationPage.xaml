@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:C868_RyanNewman.Models"
+             xmlns:services="clr-namespace:C868_RyanNewman.Services"
+             xmlns:viewmodels="clr-namespace:C868_RyanNewman.ViewModels"
+             x:Class="C868_RyanNewman.Views.CourseInformationPage"
+             Title="CourseInformationPage">
+    <ScrollView>
+
+        <StackLayout Padding="10" Spacing="20">
+
+            <!-- Course Name -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    <Label Text="Course Title" FontAttributes="Bold" FontSize="Medium" />
+                    <Label Text="{Binding Course.Title}" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Course End Date with Alert Toggle in Frame -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    <!-- Course Instructor -->
+                    <Label Text="Course Instructor" FontAttributes="Bold" FontSize="Medium" />
+                    <Label Text="{Binding Course.InstructorName}" />
+
+            <!-- Instructor Phone -->
+            <Label Text="Instructor Phone" FontAttributes="Bold" FontSize="Medium"/>
+            <Label Text="{Binding Course.FormattedPhoneNumber}" />
+
+            <!-- Instructor Email -->
+            <Label Text="Instructor Email" FontAttributes="Bold" FontSize="Medium"/>
+            <Label Text="{Binding Course.InstructorEmail}" />
+                    </StackLayout>
+            </Frame>
+            <!-- Course Start Date with Alert Toggle in Frame -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    <!-- Course Start Date Label -->
+                    <Label Text="Course Start Date" FontAttributes="Bold" FontSize="Medium" />
+                    <Label Text="{Binding Course.StartDate, StringFormat='{0:MM/dd/yyyy}'}" />
+
+                </StackLayout>
+            </Frame>
+
+            <!-- Course End Date with Alert Toggle in Frame -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    <!-- Course End Date Label -->
+                    <Label Text="Course End Date" FontAttributes="Bold" FontSize="Medium" />
+                    <Label Text="{Binding Course.EndDate, StringFormat='{0:MM/dd/yyyy}'}" />
+
+                </StackLayout>
+            </Frame>
+
+            <!-- Course End Date with Alert Toggle in Frame -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    <!-- Course End Date Label -->
+                    <Label Text="Due Date" FontAttributes="Bold" FontSize="Medium" />
+                    <Label Text="{Binding Course.DueDate, StringFormat='{0:MM/dd/yyyy}'}" />
+
+                </StackLayout>
+            </Frame>
+
+            <!-- Course End Date with Alert Toggle in Frame -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    <!-- Course Status Label -->
+                    <Label Text="Course Status" FontAttributes="Bold" FontSize="Medium" />
+                    <Label Text="{Binding Course.Status}" />
+
+                    </StackLayout>
+            </Frame>
+
+
+            <!-- Optional Notes Label and Content (shown only if not null or empty) -->
+            <Label Text="Notes (Optional)" 
+               FontAttributes="Bold" 
+               FontSize="Medium"
+               IsVisible="{Binding HasOptionalNotes}" />
+
+            <Label Text="{Binding Course.OptionalNotes}" 
+               IsVisible="{Binding HasOptionalNotes}" />
+
+            <!-- Share Optional Notes Button -->
+            <Button Text="Share Optional Notes"
+                Command="{Binding ShareOptionalNotesCommand}"
+                IsVisible="{Binding HasOptionalNotes}" />
+
+            <!-- Performance Assessment -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    
+            <!-- Performance Assessment Status -->
+            <Label Text="Performance Assessment Status" FontAttributes="Bold" FontSize="Medium"/>
+            <Label Text="{Binding PerformanceAssessmentStatus}" />
+                 </StackLayout>
+            </Frame>
+            
+            <!-- Performance Assessment -->
+            <Frame BorderColor="#2c3e50" Padding="10" CornerRadius="8">
+                <StackLayout>
+                    <!-- Objective Assessment Status -->
+            <Label Text="Objective Assessment Status" FontAttributes="Bold" FontSize="Medium"/>
+            <Label Text="{Binding ObjectiveAssessmentStatus}" />
+                    </StackLayout>
+            </Frame>
+
+            <!-- Performance Assessment "Button" -->
+            <Frame BackgroundColor="{Binding PerformanceAssessmentBackgroundColor}" Padding="15" CornerRadius="8">
+                <Label Text="{Binding PerformanceAssessmentStatusText}"
+               FontAttributes="Bold"
+               TextColor="White"
+               FontSize="Medium"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"/>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenPerformanceAssessmentCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <!-- Objective Assessment "Button" -->
+            <Frame BackgroundColor="{Binding ObjectiveAssessmentBackgroundColor}" Padding="15" CornerRadius="8">
+                <Label Text="{Binding ObjectiveAssessmentStatusText}"
+               FontAttributes="Bold"
+               TextColor="White"
+               FontSize="Medium"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"/>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenObjectiveAssessmentCommand}"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:C868_RyanNewman.Models"
+             xmlns:services="clr-namespace:C868_RyanNewman.Services"
+             xmlns:viewmodels="clr-namespace:C868_RyanNewman.ViewModels"
+             x:Class="C868_RyanNewman.Views.AddCoursePage"
+             Title="AddCoursePage">
+
+        <ScrollView>
+    <StackLayout Padding="10" Spacing="20">
+            
+
+        <!-- Course Name -->
+        <Label Text="Course Name" />
+        <Entry Text="{Binding Course.Title}" Placeholder="Enter course Title" />
+
+        <!-- Course Start Date -->
+        <Label Text="Course Start Date" />
+        <DatePicker Date="{Binding Course.StartDate}" />
+
+        <!-- Course End Date -->
+        <Label Text="Course End Date" />
+        <DatePicker Date="{Binding Course.EndDate}" />
+        
+        <!-- Course End Date -->
+        <Label Text="Due Date" />
+        <DatePicker Date="{Binding Course.DueDate}" />
+
+        <!-- Course Status -->
+        <Label Text="Course Status" />
+        <Picker ItemsSource="{Binding StatusOptions}" 
+            SelectedItem="{Binding Course.Status}"
+            Title="Select Course Status">
+        </Picker>
+
+        <!-- Instructor Name -->
+        <Label Text="Instructor Name" />
+        <Entry Text="{Binding Course.InstructorName}" />
+
+        <!-- Instructor Phone -->
+        <Label Text="Instructor Phone" />
+        <Entry Text="{Binding Course.InstructorPhoneNumber}" Keyboard="Telephone" />
+
+        <!-- Instructor Email -->
+        <Label Text="Instructor Email" />
+        <Entry Text="{Binding Course.InstructorEmail}" Keyboard="Email" />
+
+         <!-- Optional Notes -->
+         <Label Text="Notes (Optional)" />
+            <Entry Text="{Binding Course.OptionalNotes}" />
+
+            <!-- Save Button -->
+        <Button Text="Save Course" Command="{Binding SaveCourseCommand}" />
+    </StackLayout>
+        </ScrollView>
+</ContentPage>

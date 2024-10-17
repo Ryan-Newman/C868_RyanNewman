@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:C868_RyanNewman.Models"
+             xmlns:services="clr-namespace:C868_RyanNewman.Services"
+             xmlns:viewmodels="clr-namespace:C868_RyanNewman.ViewModels"
+             x:DataType="viewmodels:TermViewModel"
+             Title="Terms"
+             x:Class="C868_RyanNewman.MainPage">
+
+    <Grid ColumnDefinitions="*,*" ColumnSpacing="5" RowDefinitions="*, Auto">
+        <CollectionView Grid.ColumnSpan="2" ItemsSource="{Binding Terms}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Term">
+                    <Grid Padding="10">
+                        <Frame Margin="5" BorderColor="Black" CornerRadius="25">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TermViewModel}}, Path=GetCourseCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout Padding="10" Spacing="5">
+                                <Label Text="{Binding Name}"
+                                       FontAttributes="Bold"
+                                       FontSize="Medium"
+                                       TextColor="Black"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Start"/>
+                                <Label Text="{Binding DateRange}" 
+                                   TextColor="Black" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center" />
+                                <Button Text="Edit"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TermViewModel}}, Path=EditTermCommand}"
+                                        CommandParameter="{Binding .}"
+                                        HorizontalOptions="EndAndExpand"
+                                        VerticalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Add Term" 
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TermViewModel}}, Path=AddTermCommand}" 
+                 
+                Grid.Row="1" 
+                Grid.ColumnSpan="2"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="End"
+                Margin="10"
+                FontSize="Medium"/>
+    </Grid>
+
+</ContentPage>

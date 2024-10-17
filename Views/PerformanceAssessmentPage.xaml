@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:C868_RyanNewman.Models"
+             xmlns:services="clr-namespace:C868_RyanNewman.Services"
+             xmlns:viewmodels="clr-namespace:C868_RyanNewman.ViewModels"
+             x:Class="C868_RyanNewman.Views.PerformanceAssessmentPage"
+             Title="PerformanceAssessmentPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+                <!-- Performance Assessment Toggle -->
+                <Label Text="Enable Performance Assessment Alerts"
+                FontAttributes="Bold"
+                FontSize="Medium"
+                TextColor="#2c3e50"
+                Margin="0,10,0,0" />
+                <Switch IsToggled="{Binding Course.IsPerformanceAssessmentAlertEnabled}" />
+
+                <!-- Performance Assessment Name -->
+                <Label Text="Performance Assessment Name"
+           FontAttributes="Bold"
+           FontSize="Medium"
+           TextColor="#2c3e50"
+           Margin="0,10,0,0"/>
+                <Entry Text="{Binding Course.PerformanceAssessmentName}"
+           FontSize="Medium"
+           TextColor="#34495e"
+           Placeholder="Enter Performance Assessment Name"
+           Margin="0,0,0,20"
+           HeightRequest="40"/>
+
+                <!-- Start Date -->
+                <Label Text="Start Date"
+           FontAttributes="Bold"
+           FontSize="Medium"
+           TextColor="#2c3e50"
+           Margin="0,10,0,0"/>
+                <DatePicker Date="{Binding Course.PerformanceAssessmentStartDate, Mode=TwoWay}"
+                TextColor="#34495e"
+                FontSize="Medium"
+                Margin="0,0,0,20"
+                HeightRequest="40"/>
+
+                <!-- End Date -->
+                <Label Text="End Date"
+           FontAttributes="Bold"
+           FontSize="Medium"
+           TextColor="#2c3e50"
+           Margin="0,10,0,0"/>
+                <DatePicker Date="{Binding Course.PerformanceAssessmentEndDate, Mode=TwoWay}"
+                TextColor="#34495e"
+                FontSize="Medium"
+                Margin="0,0,0,20"
+                HeightRequest="40"/>
+
+                <!-- Save Button -->
+                <Button Text="Save"
+            Command="{Binding SaveAssessmentCommand}"
+            BackgroundColor="#27ae60"
+            TextColor="White"
+            FontAttributes="Bold"
+            CornerRadius="8"
+            Padding="10"
+            HeightRequest="45"
+            Margin="0,10,0,0"/>
+
+                <!-- Delete Button -->
+                <Button Text="Delete"
+            Command="{Binding DeleteAssessmentCommand}"
+            BackgroundColor="#e74c3c"
+            TextColor="White"
+            FontAttributes="Bold"
+            CornerRadius="8"
+            Padding="10"
+            HeightRequest="45"
+            Margin="0,10,0,0"/>
+
+                <!-- Cancel Button -->
+                <Button Text="Cancel"
+            Command="{Binding CancelCommand}"
+            BackgroundColor="#e74c3c"
+            TextColor="White"
+            FontAttributes="Bold"
+            CornerRadius="8"
+            Padding="10"
+            HeightRequest="45"
+            Margin="0,10,0,0"/>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>
