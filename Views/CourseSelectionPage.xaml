@@ -7,6 +7,18 @@
              x:Class="C868_RyanNewman.Views.CourseSelectionPage"
              Title="CourseSelectionPage">
     <ContentPage.Content>
+            
+        <ScrollView>
+        <StackLayout>
+            
+            <SearchBar Placeholder="Search Courses"
+                   TextChanged="OnSearchBarTextChanged"
+                   CancelButtonColor="Black"
+                   Grid.ColumnSpan="2"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Start"
+                   Margin="10"
+                   FontSize="Medium"/>
         <Grid ColumnDefinitions="*,*" ColumnSpacing="5" RowDefinitions="*, Auto">
             <CollectionView Grid.ColumnSpan="2" ItemsSource="{Binding Courses}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
@@ -59,6 +71,59 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <!-- CollectionView for Searched Courses -->
+            <CollectionView Grid.Row="1" Grid.ColumnSpan="2" 
+                        ItemsSource="{Binding SearchedCourses}" 
+                        SelectionMode="None"
+                        IsVisible="{Binding IsSearchActive}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Course">
+                        <Grid Padding="10">
+                            <Frame Margin="5" BorderColor="Black" CornerRadius="25">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CourseSelectionViewModel}}, Path=GetCourseInformationCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout Padding="10" Spacing="5">
+                                    <Label Text="{Binding Title}" 
+                                       FontAttributes="Bold" 
+                                       FontSize="Medium" 
+                                       TextColor="Black" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Start" />
+                                    <Label Text="{Binding DateRange}"
+                                       TextColor="Black"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                    <Label Text="{Binding DueDateText}"
+                                       TextColor="Black"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                    <Label Text="{Binding Status}"
+                                       TextColor="Black" 
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                                    <Label Text="{Binding InstructorName}" 
+                                       TextColor="Black" 
+                                       HorizontalOptions="Center" />
+                                    <Label Text="{Binding FormattedPhoneNumber}" 
+                                       TextColor="Black" 
+                                       HorizontalOptions="Center" />
+                                    <Label Text="{Binding InstructorEmail}" 
+                                       TextColor="Black" 
+                                       HorizontalOptions="Center" />
+                                    <Button Text="Edit"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CourseSelectionViewModel}}, Path=EditCourseCommand}"
+                                        CommandParameter="{Binding .}"
+                                        HorizontalOptions="EndAndExpand"
+                                        VerticalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
             <Button Text="Add Course" 
                 Command="{Binding AddCourseCommand}" 
                 Grid.Row="1" 
@@ -68,6 +133,8 @@
                 Margin="10" 
                 FontSize="Medium" />
         </Grid>
+        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 
 

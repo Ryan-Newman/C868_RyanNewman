@@ -11,6 +11,15 @@ public partial class CourseSelectionPage : ContentPage
         BindingContext = new CourseSelectionViewModel(courseService);
     }
 
+    private void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var viewModel = BindingContext as CourseSelectionViewModel;
+        if (viewModel != null)
+        {
+            viewModel.SearchCourses(e.NewTextValue);
+        }
+    }
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
