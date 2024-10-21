@@ -119,7 +119,7 @@ namespace C868_RyanNewman.ViewModels
                 else
                 {
                     // Fetch the filtered courses for the user and term based on the search term
-                    var filteredCourses = await _courseService.SearchCoursesAsync(App.CurrentUserId, searchTerm);
+                    var filteredCourses = await _courseService.SearchCoursesAsync(App.CurrentUserId, _termId, searchTerm);
 
                     // Update the observable collection
                     Courses = new ObservableCollection<Course>(filteredCourses);

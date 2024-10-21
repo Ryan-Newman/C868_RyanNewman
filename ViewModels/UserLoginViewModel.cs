@@ -90,7 +90,8 @@
                     _courseService.SetUserId(user.Id);
 
                     // Navigate to the main page after setting the user context
-                    await Shell.Current.GoToAsync("//MainPage");
+                     await Shell.Current.GoToAsync("//MainPage");
+                     
                 }
                 else
                 {

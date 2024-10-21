@@ -41,7 +41,6 @@
 
                 // Redirect to login page with username, password, and auto-login flag
                 await Shell.Current.GoToAsync($"//UserLoginPage?username={Username}&password={Password}&autoLogin=true");
-
             }
             else
             {

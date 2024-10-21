@@ -65,11 +65,15 @@
         }
 
         // Adding search feature
-        public async Task<List<Course>> SearchCoursesAsync(int userId, string searchTerm)
+        public async Task<List<Course>> SearchCoursesAsync(int userId, int termId, string searchTerm)
         {
+            //return await _database.Table<Course>()
+            //    .Where(c => c.UserId == userId && c.Title.Contains(searchTerm))
+            //    .ToListAsync();
             return await _database.Table<Course>()
-                .Where(c => c.UserId == userId && c.Title.Contains(searchTerm))
-                .ToListAsync();
+                         .Where(c => c.UserId == userId && c.TermId == termId &&
+                                     (c.Title.Contains(searchTerm) || c.InstructorName.Contains(searchTerm)))
+                         .ToListAsync();
         }
 
         public async Task<bool> AddCourseAsync(Course course)
