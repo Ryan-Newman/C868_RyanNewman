@@ -115,7 +115,7 @@ namespace C868_RyanNewman.ViewModels
             try
             {
                 // Fetch courses for the term from the service
-                var courses = await _courseService.GetCoursesForTermAsync(termId);
+                var courses = await _courseService.GetCoursesForTermAndUserAsync(termId, App.CurrentUserId);
 
                 if (courses == null || !courses.Any())
                 {

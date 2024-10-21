@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:model="clr-namespace:C868_RyanNewman.Models"
+             xmlns:services="clr-namespace:C868_RyanNewman.Services"
+             xmlns:viewmodels="clr-namespace:C868_RyanNewman.ViewModels"
+             x:Class="C868_RyanNewman.Views.UserLoginPage"
+             Title="Login Page">
+    <ScrollView>
+        <VerticalStackLayout Padding="60" Spacing="25" HorizontalOptions="Center" VerticalOptions="Center">
+
+            <!-- Welcome Text -->
+            <Label Text="Scheduler Login" 
+               FontAttributes="Bold" 
+               FontSize="24" 
+               HorizontalOptions="Center" 
+               TextColor="#2C3E50" />
+
+            <!-- Username Entry -->
+            <Label Text="Username"/>
+            <Entry Placeholder="Username" 
+               Text="{Binding Username}" 
+               FontSize="16"
+               Margin="0,10,0,0"
+               HeightRequest="50"
+               BackgroundColor="#ecf0f1"
+               />
+
+            <!-- Password Entry -->
+            <Label Text="Password"/>
+            <Entry Placeholder="Password" 
+               IsPassword="True" 
+               Text="{Binding Password}" 
+               FontSize="16"
+               Margin="0,10,0,0"
+               HeightRequest="50"
+               BackgroundColor="#ecf0f1"
+               />
+
+            <!-- Login Button -->
+            <Button Text="Login" 
+                Command="{Binding LoginCommand}" 
+                BackgroundColor="#3498db" 
+                TextColor="White"
+                FontAttributes="Bold" 
+                HeightRequest="50"
+                CornerRadius="10"
+                Margin="0,10,0,0" />
+
+            <!-- Register Navigation -->
+            <Label Text="Don't have an account? Register now!" 
+               FontSize="14" 
+               TextColor="#3498db" 
+               HorizontalOptions="Center" 
+               VerticalOptions="End"
+               Padding="10">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToRegisterCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

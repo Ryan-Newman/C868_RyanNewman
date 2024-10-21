@@ -96,7 +96,7 @@
             if (courseId <= 0) return; // Validate the courseId
 
             // Fetch the course by ID
-            Course = await _courseService.GetCourseByIdAsync(courseId);
+            Course = await _courseService.GetCourseByIdForUserAsync(courseId, App.CurrentUserId);
 
             if (Course == null)
             {

@@ -14,6 +14,8 @@
             Routing.RegisterRoute(nameof(CourseInformationPage), typeof(CourseInformationPage));
             Routing.RegisterRoute(nameof(PerformanceAssessmentPage), typeof(PerformanceAssessmentPage));
             Routing.RegisterRoute(nameof(ObjectiveAssessmentPage), typeof(ObjectiveAssessmentPage));
+            Routing.RegisterRoute(nameof(UserLoginPage), typeof(UserLoginPage));
+            Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
 
         }
     }

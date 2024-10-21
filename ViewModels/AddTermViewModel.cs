@@ -12,6 +12,7 @@
         // Event for INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         public string Name
         {
             get => _termName;
@@ -81,7 +82,8 @@
             {
                 Name = Name,
                 StartDate = StartDate,
-                EndDate = EndDate
+                EndDate = EndDate,
+                UserId = App.CurrentUserId
             };
 
             try
@@ -104,7 +106,7 @@
             IsBusy = true;
             try
             {
-                await _courseService.SeedCourseDatabaseAsync(newTerm.Id, _database); // Pass the new term's ID
+                await _courseService.SeedOneCourseForTermAsync(newTerm.Id, App.CurrentUserId);
             }
             catch (Exception ex)
             {
