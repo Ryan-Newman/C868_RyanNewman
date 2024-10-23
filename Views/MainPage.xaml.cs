@@ -58,7 +58,7 @@
 
         private async void OnAddTermsButtonClicked(Object sender, EventArgs e)
         {
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C971.db3");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C868.db3");
             try
             {
                 if (!termViewModel.IsBusy)

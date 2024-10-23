@@ -11,7 +11,7 @@ namespace C868_RyanNewman.ViewModels
         private bool isBusy;
 
         public bool IsNotBusy => !isBusy;
-        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C971.db3");
+        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C868.db3");
 
         public ObservableCollection<Term> Terms { get; private set; } = new();
 
@@ -48,7 +48,7 @@ namespace C868_RyanNewman.ViewModels
             try
             {
                 Terms.Clear();
-                var terms = await termService.GetTerms();
+                var terms = await termService.GetTermsForUserAsync(App.CurrentUserId);
                 foreach (var term in terms)
                 {
                     Console.WriteLine($"Term ID: {term.Id}, Name: {term.Name}, Start Date: {term.StartDate}, End Date: {term.EndDate}");
@@ -81,7 +81,7 @@ namespace C868_RyanNewman.ViewModels
                 if (Terms.Any())
                     Terms.Clear();
 
-                var terms = await termService.GetTerms();
+                var terms = await termService.GetTermsForUserAsync(App.CurrentUserId);
                 foreach (var term in terms)
                 {
                     Terms.Add(term);
@@ -103,7 +103,7 @@ namespace C868_RyanNewman.ViewModels
         {
             if (IsBusy) return; //Check if busy
             IsBusy = true; // Set to true before navigating
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C971.db3");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C868.db3");
             await Shell.Current.GoToAsync($"{nameof(AddTermPage)}?dbPath={dbPath}");
             IsBusy = false; // Set to false after navigating
         }
@@ -126,7 +126,7 @@ namespace C868_RyanNewman.ViewModels
         private async Task GoToCourseSelectionPage(Term term)
         {
             
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C971.db3");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C868.db3");
             await Shell.Current.GoToAsync($"{nameof(CourseSelectionPage)}?TermId={term.Id}");
             
         }

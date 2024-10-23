@@ -3,7 +3,7 @@
     public class TermService
     {
         private SQLiteAsyncConnection conn;
-        string _dbPath;
+        private string _dbPath;
         public string StatusMessage;
 
         public TermService(string dbPath)
@@ -14,8 +14,8 @@
             }
 
             conn = new SQLiteAsyncConnection(dbPath);
-
             _dbPath = dbPath;
+
             // Start initialization without blocking the constructor
             InitAsync().ConfigureAwait(false);
         }
@@ -26,7 +26,6 @@
             {
                 await conn.CreateTableAsync<Term>();
                 await conn.CreateTableAsync<Course>();
-                //await conn.CreateTableAsync<Assessment>();
             }
             catch (Exception ex)
             {
@@ -34,10 +33,9 @@
             }
         }
 
-        // Checks if a connection has been made
         public async Task InitAsync()
         {
-            _dbPath = Path.Combine(FileSystem.AppDataDirectory, "C971.db3");
+            _dbPath = Path.Combine(FileSystem.AppDataDirectory, "C868.db3");
             Console.WriteLine($"_dbPath: {_dbPath}");
 
             if (conn == null)
@@ -47,65 +45,125 @@
             }
         }
 
-        // Method to fetch a term by ID
-        public async Task<Term> GetTermByIdAsync(int termId)
+        // Fetch terms for the current user
+        public async Task<List<Term>> GetTermsForUserAsync(int userId)
         {
             try
             {
-                return await conn.Table<Term>().FirstOrDefaultAsync(t => t.Id == termId);
+                return await conn.Table<Term>().Where(t => t.UserId == userId).ToListAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error fetching term by ID: {ex.Message}");
+                Console.WriteLine($"Error fetching terms for user {userId}: {ex.Message}");
+                return new List<Term>();
+            }
+        }
+
+        // Fetch a term by ID for a specific user
+        public async Task<Term> GetTermByIdForUserAsync(int termId, int userId)
+        {
+            try
+            {
+                return await conn.Table<Term>().FirstOrDefaultAsync(t => t.Id == termId && t.UserId == userId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching term by ID for user {userId}: {ex.Message}");
                 return null;
             }
         }
 
-        public async Task<List<Term>> GetTerms()
+        // Add a term with the user ID
+        public async Task<int> AddTermAsync(Term term)
         {
+            if (term == null || term.UserId <= 0)
+            {
+                Console.WriteLine("Invalid term or UserId.");
+                return 0;
+            }
+
             try
             {
-                InitAsync();
-                return await conn.Table<Term>().ToListAsync();
+                return await conn.InsertAsync(term);
             }
             catch (Exception ex)
             {
-                StatusMessage = "Failed to retrieve data.";
+                Console.WriteLine($"Error adding term: {ex.Message}");
+                return 0;
             }
-            return new List<Term>();
-        }
-        public Task<int> AddTermAsync(Term term)
-        {
-            return conn.InsertAsync(term);
         }
 
-        #region DatabaseSeedingLogic
-        // Logic to seed one term for evaluation requirement C6
-        public async Task SeedOneTermAsync()
-        {
-
-            var term = new Term { Name = "Spring Term", StartDate = DateTime.Now, EndDate = DateTime.Now.AddMonths(6) };
-            await conn.InsertAsync(term);
-
-            // Assuming Term has an ID that auto-increments
-            var termId = term.Id; // or retrieve the ID after insert if not automatically set
-
-            // Now seed one course for this term using CourseService
-            var courseService = new CourseService(_dbPath);
-            await courseService.SeedOneCourseForTermAsync(termId);
-        }
-
-        #endregion
-
+        // Update a term with user ID check
         public async Task<int> UpdateTermAsync(Term term)
         {
-            return await conn.UpdateAsync(term);
+            if (term == null || term.UserId <= 0)
+            {
+                Console.WriteLine("Invalid term or UserId.");
+                return 0;
+            }
+
+            try
+            {
+                return await conn.UpdateAsync(term);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating term: {ex.Message}");
+                return 0;
+            }
         }
 
+        // Delete a term with user ID check
         public async Task<int> DeleteTermAsync(Term term)
         {
-            return await conn.DeleteAsync(term);
+            if (term == null || term.UserId <= 0)
+            {
+                Console.WriteLine("Invalid term or UserId.");
+                return 0;
+            }
+
+            try
+            {
+                return await conn.DeleteAsync(term);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting term: {ex.Message}");
+                return 0;
+            }
+        }
+
+        // Seed one term for a specific user
+        public async Task SeedOneTermForUserAsync(int userId)
+        {
+            var term = new Term
+            {
+                Name = "Spring Term",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(6),
+                UserId = userId
+            };
+
+            try
+            {
+                await conn.InsertAsync(term);
+
+                // Seed one course for this term
+                var courseService = new CourseService(_dbPath);
+                await courseService.SeedOneCourseForTermAsync(term.Id, userId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error seeding term for user {userId}: {ex.Message}");
+            }
+        }
+        private int _userId;
+
+        public void SetUserId(int userId)
+        {
+            _userId = userId;
         }
 
     }
+
 }

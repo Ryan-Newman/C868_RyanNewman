@@ -20,4 +20,6 @@
     <ShellContent Route="CourseInformationPage" ContentTemplate="{DataTemplate views:CourseInformationPage}" />
     <ShellContent Route="PerformanceAssessmentPage" ContentTemplate="{DataTemplate views:PerformanceAssessmentPage}" />
     <ShellContent Route="ObjectiveAssessmentPage" ContentTemplate="{DataTemplate views:ObjectiveAssessmentPage}" />
+    <ShellContent Route="UserLoginPage" ContentTemplate="{DataTemplate views:UserLoginPage}" />
+    <ShellContent Route="RegisterPage" ContentTemplate="{DataTemplate views:RegisterPage}" />
 </Shell>

@@ -18,6 +18,7 @@
 
             Course = new Course
             {
+                UserId = App.CurrentUserId,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMonths(6),
                 DueDate = DateTime.Now.AddMonths(5),

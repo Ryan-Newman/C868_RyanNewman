@@ -8,6 +8,7 @@ namespace C868_RyanNewman.ViewModels
     {
         private readonly CourseService _courseService;
         private ObservableCollection<Course> _courses;
+        private List<Course> _searchedCourses;
         private bool _isBusy;
         private Course _course;
 
@@ -62,15 +63,26 @@ namespace C868_RyanNewman.ViewModels
                 LoadCoursesAsync(_courseId); // Load course details when CourseId is set
             }
         }
+
+        public List<Course> SearchedCourses
+        {
+            get => _searchedCourses;
+            set
+            {
+                _searchedCourses = value;
+                OnPropertyChanged(nameof(SearchedCourses));
+            }
+        }
         // Constructor that takes in CourseService
         public CourseSelectionViewModel(CourseService courseService)
         {
             _courseService = courseService;
             AddCourseCommand = new Command(async () => await AddCourse());
-            //GetCourseDetailsCommand = new Command(async () => await GetCourseDetails(_course));
-            //GetCourseDetailsCommand = new Command<Course>(async (_course) => await GetCourseDetails(_course));
+            SearchedCourses = new List<Course>();
             EditCourseCommand = new Command<Course>(async (course) => await EditCourse(course));
             GetCourseInformationCommand = new Command<Course>(async (Course course) => await GetCourseInformation(course));
+            SearchCommand = new Command<string>(async (searchTerm) => await SearchCourses(searchTerm));
+
 
             Courses = new ObservableCollection<Course>();
         }
@@ -88,6 +100,43 @@ namespace C868_RyanNewman.ViewModels
             // Navigate to TermDetailsPage with the selected term's ID
             await Shell.Current.GoToAsync($"{nameof(CourseDetailsPage)}?CourseId={course.Id}");
         }
+
+        public async Task SearchCourses(string searchTerm)
+        {
+            if (IsBusy) return;
+
+            IsBusy = true;
+
+            try
+            {
+                if (string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    // If the search term is empty, load all courses
+                    // await LoadCoursesAsync(TermId);
+                    var allCourses = await _courseService.GetCoursesForTermAndUserAsync(TermId, App.CurrentUserId);
+                    Courses = new ObservableCollection<Course>(allCourses);
+                }
+                else
+                {
+                    // Fetch the filtered courses for the user and term based on the search term
+                    var filteredCourses = await _courseService.SearchCoursesAsync(App.CurrentUserId, _termId, searchTerm);
+
+                    // Update the observable collection
+                    Courses = new ObservableCollection<Course>(filteredCourses);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Search failed: {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+      
+        // Command to search for courses
+        public ICommand SearchCommand { get; }
         public ICommand EditCourseCommand { get; }
         public ICommand GetCourseInformationCommand { get; }
         private async Task GetCourseInformation(Course selectedCourse)
@@ -115,7 +164,7 @@ namespace C868_RyanNewman.ViewModels
             try
             {
                 // Fetch courses for the term from the service
-                var courses = await _courseService.GetCoursesForTermAsync(termId);
+                var courses = await _courseService.GetCoursesForTermAndUserAsync(termId, App.CurrentUserId);
 
                 if (courses == null || !courses.Any())
                 {

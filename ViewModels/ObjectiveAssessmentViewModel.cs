@@ -116,7 +116,7 @@
             if (courseId <= 0) return; // Validate the courseId
 
             // Fetch the course by ID
-            Course = await _courseService.GetCourseByIdAsync(courseId);
+            Course = await _courseService.GetCourseByIdForUserAsync(courseId, App.CurrentUserId);
 
             if (Course == null)
             {
@@ -201,7 +201,7 @@
             if (isConfirmed)
             {
                 // Delete the objective assessment from the database
-                await _courseService.DeleteObjectiveAssessmentAsync(_courseId);
+                await _courseService.GetCourseByIdForUserAsync(_courseId, App.CurrentUserId);
                 await Shell.Current.GoToAsync(".."); // Navigate back to the previous page
             }
         }

@@ -14,6 +14,8 @@
         public int InstructorId { get; set; }
         // Create a foreign key for TermId
         public int TermId { get; set; }
+        // Create a foreign key for UserId
+        public int UserId { get; set; }
 
         public string InstructorName { get; set; }
         public string InstructorPhoneNumber { get; set; }

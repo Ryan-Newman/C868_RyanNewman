@@ -15,7 +15,7 @@ namespace C868_RyanNewman
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C971.db3");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "C868.db3");
 
             //Resgister Veiws
             builder.Services.AddSingleton<MainPage>();
@@ -27,6 +27,8 @@ namespace C868_RyanNewman
             builder.Services.AddTransient<CourseInformationPage>();
             builder.Services.AddTransient<PerformanceAssessmentPage>();
             builder.Services.AddTransient<ObjectiveAssessmentPage>();
+            builder.Services.AddTransient<UserLoginPage>();
+            builder.Services.AddTransient<RegisterPage>();
 
 
             //Register ViewModels
@@ -39,11 +41,14 @@ namespace C868_RyanNewman
             builder.Services.AddTransient<CourseInformationViewModel>();
             builder.Services.AddTransient<PerformanceAssessmentViewModel>();
             builder.Services.AddTransient<ObjectiveAssessmentViewModel>();
+            builder.Services.AddTransient<UserLoginViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
 
 
             // Register Services
             builder.Services.AddSingleton<TermService>(s => ActivatorUtilities.CreateInstance<TermService>(s, dbPath));
             builder.Services.AddSingleton<CourseService>(s => ActivatorUtilities.CreateInstance<CourseService>(s, dbPath));
+            builder.Services.AddSingleton<UserService>(s => ActivatorUtilities.CreateInstance<UserService>(s, dbPath));
 
 #if DEBUG
             builder.Logging.AddDebug();

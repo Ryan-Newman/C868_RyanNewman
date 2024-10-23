@@ -30,7 +30,7 @@
         {
             if (id <= 0) return; // Validate the id
 
-            _term = await _termService.GetTermByIdAsync(id); // Fetch the term by ID
+            _term = await _termService.GetTermByIdForUserAsync(id, App.CurrentUserId); 
             OnPropertyChanged(nameof(Term)); // Notify that the term has changed
             Title = $"Term Details - {_term?.Name}"; // Update title
         }
